@@ -140,7 +140,7 @@ function validarCampos() {
         card.addEventListener('click', (event) => selectCard(event, 'tipoGriferia', true));
     });
 
-    function calcular() {
+    async function calcular() {
         if (!validarCampos()) {
             Swal.fire({
                 icon: 'error',
@@ -157,14 +157,25 @@ function validarCampos() {
         const costoGriferia = precios.griferias[document.getElementById('tipoGriferia').value];
         const costoTotal = costoPisos + costoParedes + costoGriferia;
     
-        document.getElementById('costoPisos').innerHTML = `$${costoPisos.toFixed(2)}`;
-        document.getElementById('costoParedes').innerHTML = `$${costoParedes.toFixed(2)}`;
-        document.getElementById('costoGriferia').innerHTML = `$${costoGriferia.toFixed(2)}`;
-        document.getElementById('costoTotal').innerHTML = `$${costoTotal.toFixed(2)}`;
-        document.getElementById('resultado').classList.remove('hidden');
-        guardarCalculo(costoPisos, costoParedes, costoGriferia, costoTotal);
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementById('costoPisos').innerHTML = `$${costoPisos.toFixed(2)}`;
+                document.getElementById('costoParedes').innerHTML = `$${costoParedes.toFixed(2)}`;
+                document.getElementById('costoGriferia').innerHTML = `$${costoGriferia.toFixed(2)}`;
+                document.getElementById('costoTotal').innerHTML = `$${costoTotal.toFixed(2)}`;
+                document.getElementById('resultado').classList.remove('hidden');
+                guardarCalculo(costoPisos, costoParedes, costoGriferia, costoTotal);
+                resolve();
+            }, 0);
+        });
     }
 
-    document.getElementById('calcular').addEventListener('click', calcular);
+    document.getElementById('calcular').addEventListener('click', () => {
+        calcular().then(() => {
+            console.log('Cálculo completado');
+        }).catch((error) => {
+            console.error('Error en el cálculo:', error);
+        });
     document.getElementById('verCalculosAnteriores').addEventListener('click', mostrarCalculosAnteriores);
+    });
 });
