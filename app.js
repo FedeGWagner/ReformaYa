@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             return;
         }
-    
+
         let listaCalculos = '<ul>';
         calculos.forEach((calculo, index) => {
             listaCalculos += `<li>Cálculo ${index + 1} (${new Date(calculo.fecha).toLocaleString()}):`;
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             listaCalculos += `</ul></li>`;
         });
         listaCalculos += '</ul>';
-    
+
         Swal.fire({
             title: 'Cálculos anteriores',
             html: listaCalculos,
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Reinicializar el evento "click" del botón "Borrar cálculos anteriores" después de cerrar el cuadro de diálogo
             document.getElementById('borrarCalculosAnteriores').addEventListener('click', borrarCalculosAnteriores);
         });
-    
+
         // Agregar el evento "click" al botón "Borrar cálculos anteriores" dentro del cuadro de diálogo
         setTimeout(() => {
             document.getElementById('borrarCalculosAnteriores').addEventListener('click', borrarCalculosAnteriores);
@@ -80,19 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-function validarCampos() {
-    const largo = parseFloat(document.getElementById('largo').value);
-    const ancho = parseFloat(document.getElementById('ancho').value);
-    const alto = parseFloat(document.getElementById('alto').value);
-    const materialPisos = document.getElementById('materialPisos').value;
-    const materialParedes = document.getElementById('materialParedes').value;
-    const tipoGriferia = document.getElementById('tipoGriferia').value;
+    function validarCampos() {
+        const largo = parseFloat(document.getElementById('largo').value);
+        const ancho = parseFloat(document.getElementById('ancho').value);
+        const alto = parseFloat(document.getElementById('alto').value);
+        const materialPisos = document.getElementById('materialPisos').value;
+        const materialParedes = document.getElementById('materialParedes').value;
+        const tipoGriferia = document.getElementById('tipoGriferia').value;
 
-    if (!largo || !ancho || !alto || !materialPisos || !materialParedes || !tipoGriferia || largo <= 0 || ancho <= 0 || alto <= 0) {
-        return false;
+        if (!largo || !ancho || !alto || !materialPisos || !materialParedes || !tipoGriferia || largo <= 0 || ancho <= 0 || alto <= 0) {
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 
     function selectCard(event, inputId, showMessage) {
         const selectedClass = 'selected';
@@ -140,6 +140,33 @@ function validarCampos() {
         card.addEventListener('click', (event) => selectCard(event, 'tipoGriferia', true));
     });
 
+    let mostrarEnDolares = false;
+
+    function toggleCurrency() {
+        const costoPisos = parseFloat(document.getElementById("costoPisos").textContent.replace(/[^0-9.]/g, ''));
+        const costoParedes = parseFloat(document.getElementById("costoParedes").textContent.replace(/[^0-9.]/g, ''));
+        const costoGriferia = parseFloat(document.getElementById("costoGriferia").textContent.replace(/[^0-9.]/g, ''));
+        const costoTotal = parseFloat(document.getElementById("costoTotal").textContent.replace(/[^0-9.]/g, ''));
+
+        if (!mostrarEnDolares) {
+            document.getElementById("costoPisos").innerHTML = `USD ${(costoPisos / dolarOficial).toFixed(2)}`;
+            document.getElementById("costoParedes").innerHTML = `USD ${(costoParedes / dolarOficial).toFixed(2)}`;
+            document.getElementById("costoGriferia").innerHTML = `USD ${(costoGriferia / dolarOficial).toFixed(2)}`;
+            document.getElementById("costoTotal").innerHTML = `USD ${(costoTotal / dolarOficial).toFixed(2)}`;
+            document.getElementById("toggleCurrency").innerText = "Mostrar en pesos";
+        } else {
+            document.getElementById("costoPisos").innerHTML = `$${(costoPisos * dolarOficial).toFixed(2)}`;
+            document.getElementById("costoParedes").innerHTML = `$${(costoParedes * dolarOficial).toFixed(2)}`;
+            document.getElementById("costoGriferia").innerHTML = `$${(costoGriferia * dolarOficial).toFixed(2)}`;
+            document.getElementById("costoTotal").innerHTML = `$${(costoTotal * dolarOficial).toFixed(2)}`;
+            document.getElementById("toggleCurrency").innerText = "Mostrar en dólares";
+        }
+
+        mostrarEnDolares = !mostrarEnDolares;
+    }
+
+
+
     async function calcular() {
         if (!validarCampos()) {
             Swal.fire({
@@ -156,7 +183,7 @@ function validarCampos() {
         const costoParedes = areaParedes * precios.materialesParedes[document.getElementById('materialParedes').value];
         const costoGriferia = precios.griferias[document.getElementById('tipoGriferia').value];
         const costoTotal = costoPisos + costoParedes + costoGriferia;
-    
+
         return new Promise((resolve) => {
             setTimeout(() => {
                 document.getElementById('costoPisos').innerHTML = `$${costoPisos.toFixed(2)}`;
@@ -164,6 +191,7 @@ function validarCampos() {
                 document.getElementById('costoGriferia').innerHTML = `$${costoGriferia.toFixed(2)}`;
                 document.getElementById('costoTotal').innerHTML = `$${costoTotal.toFixed(2)}`;
                 document.getElementById('resultado').classList.remove('hidden');
+                document.getElementById('toggleCurrency').addEventListener('click', toggleCurrency);
                 guardarCalculo(costoPisos, costoParedes, costoGriferia, costoTotal);
                 resolve();
             }, 0);
@@ -176,6 +204,6 @@ function validarCampos() {
         }).catch((error) => {
             console.error('Error en el cálculo:', error);
         });
-    document.getElementById('verCalculosAnteriores').addEventListener('click', mostrarCalculosAnteriores);
+        document.getElementById('verCalculosAnteriores').addEventListener('click', mostrarCalculosAnteriores);
     });
 });
