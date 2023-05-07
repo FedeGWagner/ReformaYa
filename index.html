@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Remodelación</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculá tu reforma!</h1>
+
+        <!-- Sección de selección de ambiente -->
+        <div id="seleccion-ambiente">
+            <h5>Elige el Ambiente a reformar:</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card tipo-remodelacion" data-value="Cocina">
+                        <img src="img/kitchen-3689917_1280.jpg" alt="imgCocina">
+                        <div class="card-body">
+                            <h5 class="card-title">Cocina</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card tipo-remodelacion" data-value="Baño">
+                        <img src="img/modern-minimalist-bathroom-3115450_1280.jpg" alt="ImgBaño">
+                        <div class="card-body">
+                            <h5 class="card-title">Baño</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="tipoRemodelacion">
+        </div>
+
+        <!-- Sección de ingreso de medidas -->
+        <div id="ingreso-medidas">
+            <h5>Ingresa las medidas del ambiente:</h5>
+            <div class="form-group">
+                <label for="largo">Largo (m):</label>
+                <input type="number" class="form-control" id="largo">
+            </div>
+            <div class="form-group">
+                <label for="ancho">Ancho (m):</label>
+                <input type="number" class="form-control" id="ancho">
+            </div>
+            <div class="form-group">
+                <label for="alto">Alto (m):</label>
+                <input type="number" class="form-control" id="alto">
+            </div>
+        </div>
+
+        <!-- Sección de selección de materiales -->
+        <div id="seleccion-materiales">
+            <h5>Selecciona el material para los pisos:</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card material-pisos" data-value="ceramica">
+                        <img src="img/ceramicos-p.jpg" alt="ceramic">
+                        <div class="card-body">
+                            <h5 class="card-title">Cerámica</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card material-pisos" data-value="porcelanato">
+                        <img src="img/porcelanato.jpg" alt="porcelanato">
+                        <div class="card-body">
+                            <h5 class="card-title">Porcelanato</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card material-pisos" data-value="madera">
+                        <img src="img/madera.jpg" alt="madera">
+                        <div class="card-body">
+                            <h5 class="card-title">Madera</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="materialPisos">
+
+            <h5>Selecciona el revestimiento de las paredes:</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card material-paredes" data-value="ceramica">
+                        <div class="card-body">
+                            <h5 class="card-title">Cerámica</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card material-paredes" data-value="porcelanato">
+                        <div class="card-body">
+                            <h5 class="card-title">Porcelanato</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card material-paredes" data-value="pintura">
+                        <div class="card-body">
+                            <h5 class="card-title">Pintura</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="materialParedes">
+
+            <h5>Selecciona el tipo de Equipamiento (Griferias y Sanitarios):</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card tipo-griferia" data-value="basica">
+                        <div class="card-body">
+                            <h5 class="card-title">Básica</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card tipo-griferia" data-value="premium">
+                        <div class="card-body">
+                            <h5 class="card-title">Premium</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="tipoGriferia">
+        </div>
+
+        <div id="calculo-presupuesto">
+            <h3 class="mt-5">Calcula el presupuesto completo de tu reforma! (Incluye Materiales y Mano de Obra)</h3>
+            <button class="btn btn-primary" id="calcular">Calcular</button>
+            <!-- <div class="mt-3 mb-1">
+                <div id="resultado" class="alert alert-info" role="alert"></div>
+            </div> -->
+        </div>
+
+        <div id="resultado" class="container hidden">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Concepto</th>
+                                <th scope="col">Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pisos</td>
+                                <td id="costoPisos"></td>
+                            </tr>
+                            <tr>
+                                <td>Paredes</td>
+                                <td id="costoParedes"></td>
+                            </tr>
+                            <tr>
+                                <td>Grifería</td>
+                                <td id="costoGriferia"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td id="costoTotal"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="calculos-anteriores">
+            <h3 class="mt-3">Mira tus calculos anteriores y compara precios!</h3>
+            <button id="verCalculosAnteriores" class="btn btn-primary">Ver cálculos anteriores</button>
+        </div>
+    </div>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
