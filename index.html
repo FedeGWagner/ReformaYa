@@ -10,11 +10,32 @@
     <title>Calculadora de Remodelación</title>
 </head>
 
-<body>
-    <div id="cotizaciones"></div>
-    <div class="container">
-        <h1>Calculá tu reforma!</h1>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-blur">
+        <a class="navbar-brand" href="#">Reformas YA!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Equipo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+</header>
 
+<body>
+    <div class="container">
+        <h1>Cotiza tu reforma!</h1>
         <!-- Sección de selección de ambiente -->
         <div id="seleccion-ambiente">
             <h5>Elige el Ambiente a reformar:</h5>
@@ -59,7 +80,7 @@
         <!-- Sección de selección de materiales -->
         <div id="seleccion-materiales">
             <h5>Selecciona el material para los pisos:</h5>
-            <div class="row">
+            <div class="row" id="material-pisos">
                 <div class="col-md-4">
                     <div class="card material-pisos" data-value="ceramica">
                         <img src="img/ceramicos-p.jpg" alt="ceramic">
@@ -88,9 +109,10 @@
             <input type="hidden" id="materialPisos">
 
             <h5>Selecciona el revestimiento de las paredes:</h5>
-            <div class="row">
+            <div class="row" id="material-paredes">
                 <div class="col-md-4">
                     <div class="card material-paredes" data-value="ceramica">
+                        <img src="img/ceramicos-pared.jpg" alt="ceramica-pared">
                         <div class="card-body">
                             <h5 class="card-title">Cerámica</h5>
                         </div>
@@ -98,6 +120,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card material-paredes" data-value="porcelanato">
+                        <img src="img/porcelanato-pared.jpg" alt="porcelanato-pared">
                         <div class="card-body">
                             <h5 class="card-title">Porcelanato</h5>
                         </div>
@@ -105,6 +128,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card material-paredes" data-value="pintura">
+                        <img src="img/pintura-pared.jpg" alt="pintura-pared">
                         <div class="card-body">
                             <h5 class="card-title">Pintura</h5>
                         </div>
@@ -114,16 +138,18 @@
             <input type="hidden" id="materialParedes">
 
             <h5>Selecciona el tipo de Equipamiento (Griferias y Sanitarios):</h5>
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row" id="tipoGriferiaSection">
+                <div class="col-md-4">
                     <div class="card tipo-griferia" data-value="basica">
+                        <img src="img/griferia-basica.jpg" alt="griferia-basica">
                         <div class="card-body">
                             <h5 class="card-title">Básica</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card tipo-griferia" data-value="premium">
+                        <img src="img/griferia-premium.jpg" alt="griferia-premium">
                         <div class="card-body">
                             <h5 class="card-title">Premium</h5>
                         </div>
@@ -175,10 +201,33 @@
             <h3 class="mt-3">Mira tus calculos anteriores y compara precios!</h3>
             <button id="verCalculosAnteriores" class="btn btn-primary">Ver cálculos anteriores</button>
         </div>
+        <div id="cotizaciones"></div>
     </div>
 
+    <footer class="footer-blur">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-lg-6">
+                    <h4>Reformas YA!</h4>
+                    <p>Todos los derechos reservados</p>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="nav justify-content-lg-end">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Equipo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

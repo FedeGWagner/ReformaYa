@@ -1,15 +1,17 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300&family=Inria+Serif&family=Roboto:wght@100&display=swap');
 
-body{
+body {
     background-image: url(img/blurry-1800136_1920.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
 }
+
 .card {
     cursor: pointer;
     margin: 10px;
@@ -17,11 +19,13 @@ body{
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .card.selected {
     border-color: rgb(242, 245, 244);
     border-width: 2px;
@@ -36,15 +40,15 @@ body{
     border-top-right-radius: 20px;
 }
 
-h1{
+h1 {
     margin-top: 20px;
 }
 
-h5{
+h5 {
     margin-top: 50px;
 }
 
-#calcular{
+#calcular {
     width: 150px;
     height: 50px;
     margin: 20px;
@@ -52,7 +56,8 @@ h5{
     border-color: black;
     font-size: 20px;
 }
-#verCalculosAnteriores{
+
+#verCalculosAnteriores {
     width: 300px;
     height: 50px;
     margin: 20px;
@@ -62,7 +67,7 @@ h5{
     margin-bottom: 50px !important;
 }
 
-#toggleCurrency{
+#toggleCurrency {
     width: 300px;
     height: 50px;
     margin: 20px;
@@ -80,4 +85,32 @@ h5{
 
 .hidden {
     display: none;
+}
+
+.navbar-blur {
+    background: transparent;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: none;
+    font-size: 20px;
+}
+
+.navbar-brand {
+    font-size: 30px;
+}
+
+.footer-blur {
+    background: transparent;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: none;
+    font-size: 20px;
+}
+
+.footer-blur a {
+    color: white;
+}
+
+.footer-blur a:hover {
+    color: #ddd;
 }
